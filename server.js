@@ -9,6 +9,9 @@ const dives = require('./routes/dives');
 // Load env vars
 dotenv.config({ path: './config/config.env' });
 
+// Connect to mongo database
+connectDB();
+
 const app = express();
 
 // Mount routers
