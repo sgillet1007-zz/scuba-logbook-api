@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const colors = require('colors');
+const connectDB = require('./config/db');
 
 // Route files
 const dives = require('./routes/dives');
@@ -22,10 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(
+const server = app.listen(
     PORT,
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-    )
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)
 );
 
 // Handler for unhandled promise rejections
