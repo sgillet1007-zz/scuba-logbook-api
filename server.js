@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 
 // Route files
 const dives = require('./routes/dives');
+const auth = require('./routes/auth');
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
@@ -15,8 +16,12 @@ connectDB();
 
 const app = express();
 
+// Body parser
+app.use(express.json());
+
 // Mount routers
 app.use('/api/v1/dives', dives);
+app.use('/api/v1/auth', auth);
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
