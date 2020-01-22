@@ -46,7 +46,7 @@ const DiveSchema = new mongoose.Schema(
         weightsUsed: {
             type: Number,
             min: [0, "Weight used cannot be less than 0 lbs"],
-            max: [50, "Wheight used cannot exceed 50 lbs"]
+            max: [50, "Weight used cannot exceed 50 lbs"]
         },
         diveType: {
             type: String,
@@ -129,6 +129,11 @@ const DiveSchema = new mongoose.Schema(
         notes: {
             type: String,
             maxlength: [280, "Notes cannot exceed 280 characters"]
+        },
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+            required: true
         }
     }
 );
