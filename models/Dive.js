@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const DiveSchema = new mongoose.Schema({
   startedAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    required: true
   },
   endedAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    required: true
   },
   diveTimeMins: {
     type: Number,
@@ -16,7 +18,8 @@ const DiveSchema = new mongoose.Schema({
   },
   siteName: {
     type: String,
-    maxlength: [100, 'Dive site name cannot exceed 100 characters']
+    maxlength: [100, 'Dive site name cannot exceed 100 characters'],
+    required: true
   },
   psiStart: {
     type: Number,
@@ -92,7 +95,8 @@ const DiveSchema = new mongoose.Schema({
   maxDepth: {
     type: Number,
     min: [0, 'Max depth must be greater than 0 ft'],
-    max: [0, 'Max depth cannot exceed 350 ft']
+    max: [350, 'Max depth cannot exceed 350 ft'],
+    required: true
   },
   lat: {
     type: Number,
