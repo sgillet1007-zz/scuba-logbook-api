@@ -13,8 +13,8 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 
 // Route files
-const dives = require('./routes/dives');
 const auth = require('./routes/auth');
+const dives = require('./routes/dives');
 
 const app = express();
 
@@ -26,12 +26,12 @@ app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
+  app.use(morgan('dev'));
 }
 
 // Mount routers
-app.use('/api/v1/dives', dives);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/dives', dives);
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,12 +39,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(
-    PORT,
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)
+  PORT,
+  console.log(
+    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+  )
 );
 
 // Handler for unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Unhandeled Rejection Error: ${err.message}`.red);
-    server.close(() => process.exit(1));
+  console.log(`Unhandeled Rejection Error: ${err.message}`.red);
+  server.close(() => process.exit(1));
 });
