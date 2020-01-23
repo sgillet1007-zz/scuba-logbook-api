@@ -1,12 +1,10 @@
-const express = require('express');
 const path = require('path');
+const express = require('express');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 const colors = require('colors');
+const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
-
-// Route files
-const dives = require('./routes/dives');
-const auth = require('./routes/auth');
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
@@ -14,10 +12,22 @@ dotenv.config({ path: './config/config.env' });
 // Connect to mongo database
 connectDB();
 
+// Route files
+const dives = require('./routes/dives');
+const auth = require('./routes/auth');
+
 const app = express();
 
 // Body parser
 app.use(express.json());
+
+// Cookie parser
+app.use(cookieParser());
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
 
 // Mount routers
 app.use('/api/v1/dives', dives);
@@ -35,6 +45,6 @@ const server = app.listen(
 
 // Handler for unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error: ${err.message}`.red);
+    console.log(`Unhandeled Rejection Error: ${err.message}`.red);
     server.close(() => process.exit(1));
 });
