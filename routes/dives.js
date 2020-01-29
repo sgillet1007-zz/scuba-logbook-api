@@ -8,16 +8,17 @@ const {
 } = require('../controllers/dives');
 
 const router = express.Router();
+const { protect } = require('../middleware/auth');
 
 router
   .route('/')
-  .get(getDives)
-  .post(createDive);
+  .get(protect, getDives)
+  .post(protect, createDive);
 
 router
   .route('/:id')
-  .get(getDive)
-  .put(updateDive)
-  .delete(deleteDive);
+  .get(protect, getDive)
+  .put(protect, updateDive)
+  .delete(protect, deleteDive);
 
 module.exports = router;
