@@ -12,7 +12,11 @@ exports.getDives = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`No dives found for user id ${req.user.id}`, 404)
     );
   }
-  res.status(200).json({ success: true, count: dives.length, data: dives });
+  res.status(200).json({
+    success: true,
+    count: dives.length,
+    results: res.advancedResults
+  });
 });
 
 // @desc    Get a specific dive by id
