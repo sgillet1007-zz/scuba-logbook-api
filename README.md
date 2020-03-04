@@ -37,6 +37,6 @@ FROM_NAME=[SPECIFY_FROM_NAME]
 npm run start  # starts your server on specified $PORT
 ```
 
-## API Documentation
+## Production URL & API Documentation
 
-Available in public/index.html
+To view the API documentation or to consume the API simply navigate to [scubaloggit.net](https://scubaloggit.net)
