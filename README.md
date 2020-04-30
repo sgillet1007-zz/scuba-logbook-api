@@ -34,7 +34,12 @@ FROM_NAME=[SPECIFY_FROM_NAME]
 ### Run Server
 
 ```bash
-npm run start  # starts your server on specified $PORT
+npm run dev  # starts your server in development mode
+```
+OR
+
+```bash
+npm run start  # starts your server in production mode
 ```
 
 ## Production URL & API Documentation
