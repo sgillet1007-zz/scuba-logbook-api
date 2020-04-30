@@ -40,3 +40,4 @@ npm run start  # starts your server on specified $PORT
 ## Production URL & API Documentation
 
 To view the API documentation or to consume the API simply navigate to [scubaloggit.net](https://scubaloggit.net)
+[![](public/screenshot.png)](https://scubaloggit.net)
