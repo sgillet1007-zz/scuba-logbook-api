@@ -1,4 +1,4 @@
-# Scuba Logbook API
+# Scubaloggit Application API
 
 > A RESTful API for a scuba diving logbook web application implemented as a Node/Express HTTP server with a MongoDB database.
 
