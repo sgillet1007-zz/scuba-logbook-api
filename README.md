@@ -1,6 +1,6 @@
-# Scubaloggit Application API
+# Scuba logbook API
 
-> A RESTful API for a scuba diving logbook web application implemented as a Node/Express HTTP server with a MongoDB database.
+> A RESTful API providing persistence and authentication endpoints for a scuba diving logbook web application implemented as a Node/Express HTTP server with a MongoDB database.
 
 ## Instructions for running locally
 
@@ -36,6 +36,7 @@ FROM_NAME=[SPECIFY_FROM_NAME]
 ```bash
 npm run dev  # starts your server in development mode
 ```
+
 OR
 
 ```bash

@@ -13,7 +13,9 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 
 // Load env vars
-dotenv.config({ path: "./config/config.env" });
+if (process.env.NODE_ENV === "development") {
+  dotenv.config({ path: "./config/config.env" });
+}
 
 // Connect to mongo database
 connectDB();
