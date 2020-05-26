@@ -23,6 +23,7 @@ connectDB();
 // Route files
 const auth = require('./routes/auth');
 const dives = require('./routes/dives');
+const divesites = require('./routes/divesites');
 
 const app = express();
 
@@ -61,6 +62,7 @@ app.use(cors({ preflightContinue: true }));
 // Mount routers
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/dives', dives);
+app.use('/api/v1/divesites', divesites);
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
