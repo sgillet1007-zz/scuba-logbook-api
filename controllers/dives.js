@@ -15,7 +15,7 @@ exports.getDives = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     count: dives.length,
-    results: res.advancedResults
+    results: res.advancedResults,
   });
 });
 
@@ -43,7 +43,7 @@ exports.createDive = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: newDive
+    data: newDive,
   });
 });
 
@@ -69,7 +69,7 @@ exports.updateDive = asyncHandler(async (req, res, next) => {
 
   diveToUpdate = await Dive.findOneAndUpdate(req.params.id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
 
   res.status(200).json({ success: true, data: diveToUpdate });

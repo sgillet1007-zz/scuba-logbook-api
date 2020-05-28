@@ -1,35 +1,65 @@
 const mongoose = require('mongoose');
 
 const DiveSchema = new mongoose.Schema({
-  startedAt: {
-    type: Date,
-    default: Date.now,
-    required: true
+  date: {
+    type: String,
+    default: `1900-12-12`,
+    required: true,
   },
-  endedAt: {
-    type: Date,
-    default: Date.now,
-    required: true
+  timeIn: {
+    type: Number,
+    min: [0, 'time in cannot be less than 0000'],
+    max: [2359, 'time in cannot be more than 2359'],
+    required: true,
   },
-  diveTimeMins: {
+  timeOut: {
+    type: Number,
+    min: [0, 'time in cannot be less than 0000'],
+    max: [2359, 'time in cannot be more than 2359'],
+    required: true,
+  },
+  diveDuration: {
     type: Number,
     min: [0, 'Dive time cannot be less than 0 mins'],
-    max: [200, 'Dive time cannot exceed 200 mins']
+    max: [300, 'Dive time cannot exceed 300 mins'],
   },
-  siteName: {
+  diveSite: {
     type: String,
     maxlength: [100, 'Dive site name cannot exceed 100 characters'],
-    required: true
+    required: true,
   },
-  psiStart: {
+  coords: {
+    lat: {
+      type: Number,
+      min: [-90, 'Latitude must be greater than -90 degrees'],
+      max: [90, 'Latitude cannot exceed 90 degrees'],
+    },
+    lng: {
+      type: Number,
+      min: [-180, 'Longitude must be greater than -180 degrees'],
+      max: [180, 'Longitude cannot exceed 180 degrees'],
+    },
+  },
+  psiIn: {
     type: Number,
     min: [0, 'Starting tank pressure cannot be less than 0 psi'],
-    max: [4000, 'Starting tank pressure cannot exceed 4000 psi']
+    max: [4000, 'Starting tank pressure cannot exceed 4000 psi'],
   },
-  psiEnd: {
+  psiOut: {
     type: Number,
     min: [0, 'Ending tank pressure cannot be less than 0 psi'],
-    max: [4000, 'Ending tank pressure cannot exceed 4000 psi']
+    max: [4000, 'Ending tank pressure cannot exceed 4000 psi'],
+  },
+  gasType: {
+    type: String,
+    enum: ['air', 'nitrox', 'trimix', 'heliox'],
+    default: 'air',
+  },
+  maxDepth: {
+    type: Number,
+    min: [0, 'Max depth must be greater than 0 ft'],
+    max: [350, 'Max depth cannot exceed 350 ft'],
+    required: true,
   },
   suitType: {
     type: String,
@@ -41,87 +71,90 @@ const DiveSchema = new mongoose.Schema({
       '5mm wetsuit',
       '7mm wetsuit',
       'semi-dry wetsuit',
-      'dry suit'
+      'dry suit',
     ],
-    default: '3mm wetsuit'
+    default: '3mm wetsuit',
   },
-  weightsUsed: {
+  weightUsed: {
     type: Number,
     min: [0, 'Weight used cannot be less than 0 lbs'],
-    max: [50, 'Weight used cannot exceed 50 lbs']
+    max: [50, 'Weight used cannot exceed 50 lbs'],
+  },
+  diveComputer: {
+    type: String,
+    enum: ['console', 'wrist', 'watch'],
+    default: 'console',
   },
   diveType: {
     type: String,
-    enum: ['boat', 'shore', 'liveaboard'],
-    default: 'boat'
+    enum: ['boat', 'shore'],
+    default: 'boat',
   },
-  waterConditions: {
+  current: {
     type: String,
-    enum: ['current', 'surge', 'calm'],
-    default: 'calm'
+    enum: ['strong', 'moderate', 'gentle', 'none'],
+    default: 'none',
+  },
+  waves: {
+    type: String,
+    enum: ['large', 'moderate', 'small', 'calm'],
+    default: 'calm',
   },
   waterType: {
     type: String,
     enum: ['fresh', 'salt', 'brackish'],
-    default: 'salt'
+    default: 'salt',
+  },
+  dayOrNight: {
+    type: String,
+    enum: ['Day', 'Night'],
+    default: 'Day',
+  },
+  visibility: {
+    type: Number,
+    min: [0, 'Visibility cannot be less than 0 ft'],
+    max: [300, 'Visibility cannot exceed 300 ft'],
   },
   waterTemp: {
     type: Number,
     min: [32, 'Water temp must be at least 0 degrees F'],
     max: [100, 'Water temp cannot exceed 100 degrees F'],
-    default: 75
+    default: 75,
   },
-  airTemp: {
-    type: Number,
-    min: [-30, 'Air temp must be at least -30 degrees F'],
-    max: [150, 'Air temp cannot exceed 150 degrees F'],
-    default: 75
-  },
-  visibility: {
-    type: Number,
-    min: [0, 'Visibility cannot be less than 0 ft'],
-    max: [300, 'Visibility cannot exceed 300 ft']
-  },
-  diveComputer: {
+  buddy: {
     type: String,
-    enum: ['console', 'wrist', 'watch'],
-    default: 'console'
-  },
-  gasType: {
-    type: String,
-    enum: ['air', 'nitrox', 'trimix', 'heliox'],
-    default: 'air'
-  },
-  maxDepth: {
-    type: Number,
-    min: [0, 'Max depth must be greater than 0 ft'],
-    max: [350, 'Max depth cannot exceed 350 ft'],
-    required: true
-  },
-  lat: {
-    type: Number,
-    min: [-90, 'Latitude must be greater than -90 degrees'],
-    max: [90, 'Latitude cannot exceed 90 degrees']
-  },
-  long: {
-    type: Number,
-    min: [-180, 'Longitude must be greater than -180 degrees'],
-    max: [180, 'Longitude cannot exceed 180 degrees']
+    maxlength: [100, 'Dive buddy value cannot exceed 100 characters'],
   },
   notes: {
     type: String,
-    maxlength: [280, 'Notes cannot exceed 280 characters']
+    maxlength: [280, 'Notes cannot exceed 280 characters'],
   },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    required: true
-  }
+    required: true,
+  },
 });
 
-// Calculate diveTimeMins from startedAt and endedAt
+// Calculate diveDuration from timeIn and timeOut
 DiveSchema.pre('save', function(next) {
-  this.diveTimeMins = (this.endedAt - this.startedAt) / (1000 * 60);
+  const inHour = Math.floor(this.timeIn / 100);
+  const outHour = Math.floor(this.timeOut / 100);
+  const inMins = this.timeIn % 100;
+  const outMins = this.timeOut % 100;
+
+  if (inHour === outHour) {
+    this.diveDuration = outMins - inMins;
+  } else if (inHour != outHour) {
+    let divedMinutes = 0;
+    divedMinutes += 60 - inMins + outMins;
+    if (outHour - inHour === 2) {
+      divedMinutes += 60;
+    } else if (outHour - inHour === 3) {
+      divedMinutes += 120;
+    }
+    this.diveDuration = divedMinutes;
+  }
   next();
 });
 
