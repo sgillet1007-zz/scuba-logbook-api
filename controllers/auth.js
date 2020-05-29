@@ -185,7 +185,5 @@ exports.resetPw = asyncHandler(async (req, res, next) => {
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
 
-  res
-    .status(statusCode)
-    .json({ success: true, email: user.email, token: token });
+  res.status(statusCode).json({ success: true, user: user.id, token: token });
 };
