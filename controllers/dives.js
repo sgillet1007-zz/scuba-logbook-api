@@ -67,7 +67,7 @@ exports.updateDive = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Not authorized to edit this dive', 401));
   }
 
-  diveToUpdate = await Dive.findOneAndUpdate(req.params.id, req.body, {
+  diveToUpdate = await Dive.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
