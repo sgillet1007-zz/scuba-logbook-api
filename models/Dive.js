@@ -107,8 +107,8 @@ const DiveSchema = new mongoose.Schema({
   },
   dayOrNight: {
     type: String,
-    enum: ['Day', 'Night'],
-    default: 'Day',
+    enum: ['day', 'night'],
+    default: 'day',
   },
   visibility: {
     type: Number,
