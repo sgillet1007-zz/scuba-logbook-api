@@ -164,26 +164,4 @@ DiveSchema.pre("save", function(next) {
   next();
 });
 
-// DiveSchema.pre("updateOne", function(next) {
-//   console.log("update callback called!!");
-//   const inHour = Math.floor(this.timeIn / 100);
-//   const outHour = Math.floor(this.timeOut / 100);
-//   const inMins = this.timeIn % 100;
-//   const outMins = this.timeOut % 100;
-
-//   if (inHour === outHour) {
-//     this.diveDuration = outMins - inMins;
-//   } else if (inHour != outHour) {
-//     let divedMinutes = 0;
-//     divedMinutes += 60 - inMins + outMins;
-//     if (outHour - inHour === 2) {
-//       divedMinutes += 60;
-//     } else if (outHour - inHour === 3) {
-//       divedMinutes += 120;
-//     }
-//     this.diveDuration = divedMinutes;
-//   }
-//   next();
-// });
-
 module.exports = mongoose.model("Dive", DiveSchema);
