@@ -132,7 +132,7 @@ const DiveSchema = new mongoose.Schema({
   },
   notes: {
     type: String,
-    default: "Another awesome dive!",
+    default: "Another great dive!",
     maxlength: [280, "Notes cannot exceed 280 characters"],
   },
   user: {
